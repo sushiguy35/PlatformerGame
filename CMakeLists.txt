@@ -28,7 +28,7 @@ target_compile_definitions(gl2dDemo PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURC
 #target_compile_definitions(gl2dDemo PUBLIC RESOURCES_PATH="./resources/") # Uncomment this line to setup the ASSETS_PATH macro to the final assets directory when you share the game
 #add_definitions(-DRESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
 
-target_sources(gl2dDemo PRIVATE "src/main.cpp" )
+target_sources(gl2dDemo PRIVATE "src/main.cpp"  "src/headers/player.h" "src/source/player.cpp" "src/headers/world.h" "src/source/world.cpp")
 if(MSVC) # If using the VS compiler...
 	target_compile_definitions(gl2dDemo PUBLIC _CRT_SECURE_NO_WARNINGS)
 endif()
@@ -37,32 +37,3 @@ target_link_libraries(gl2dDemo PRIVATE glm glfw
 
 
 	
-add_executable(gl2dCustomShaderDemo)
-set_property(TARGET gl2dCustomShaderDemo PROPERTY CXX_STANDARD 17)
-target_compile_definitions(gl2dCustomShaderDemo PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/") # This is useful to get an ASSETS_PATH in your IDE during development but you should comment this if you compile a release version and uncomment the next line
-#target_compile_definitions(gl2dCustomShaderDemo PUBLIC RESOURCES_PATH="./resources/") # Uncomment this line to setup the ASSETS_PATH macro to the final assets directory when you share the game
-#add_definitions(-DRESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
-
-target_sources(gl2dCustomShaderDemo PRIVATE "src/mainCustomShader.cpp" )
-if(MSVC) # If using the VS compiler...
-	target_compile_definitions(gl2dCustomShaderDemo PUBLIC _CRT_SECURE_NO_WARNINGS)
-endif()
-target_link_libraries(gl2dCustomShaderDemo PRIVATE glm glfw 
-	glad stb_image stb_truetype gl2d)
-
-
-
-
-add_executable(gl2dPostProcessDemo)
-set_property(TARGET gl2dPostProcessDemo PROPERTY CXX_STANDARD 17)
-target_compile_definitions(gl2dPostProcessDemo PUBLIC RESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/") # This is useful to get an ASSETS_PATH in your IDE during development but you should comment this if you compile a release version and uncomment the next line
-#target_compile_definitions(gl2dPostProcessDemo PUBLIC RESOURCES_PATH="./resources/") # Uncomment this line to setup the ASSETS_PATH macro to the final assets directory when you share the game
-#add_definitions(-DRESOURCES_PATH="${CMAKE_CURRENT_SOURCE_DIR}/resources/")
-
-target_sources(gl2dPostProcessDemo PRIVATE "src/mainPostProcess.cpp" )
-if(MSVC) # If using the VS compiler...
-	target_compile_definitions(gl2dPostProcessDemo PUBLIC _CRT_SECURE_NO_WARNINGS)
-endif()
-target_link_libraries(gl2dPostProcessDemo PRIVATE glm glfw 
-	glad stb_image stb_truetype gl2d)
-

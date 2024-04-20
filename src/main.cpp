@@ -1,31 +1,29 @@
 #include <glad/glad.h>
 #include <glfw/glfw3.h>
 #include "gl2d/gl2d.h"
+#include "headers/player.h"
 
 int main()
 {
 	// Initialize GLFW
 	glfwInit();
-	GLFWwindow *window = glfwCreateWindow(840, 640, "Window", nullptr, nullptr);
+	GLFWwindow *window = glfwCreateWindow(1200, 800, "Window", nullptr, nullptr);
 	glfwMakeContextCurrent(window);
 	gladLoadGLLoader((GLADloadproc)(glfwGetProcAddress));
-	
-	//I set the version to test if my library still works with older versions, but you don't
-	//need to care about that
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 1);
-	//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+	glfwSwapInterval(1);
+
 
 	// Initialize gl2d
 	gl2d::init();
 
+	Player player;
+	player.init();
 
 	gl2d::Renderer2D renderer;
 	renderer.create();
 
 	// Load resources example
 	//gl2d::Font font(RESOURCES_PATH "roboto_black.ttf");
-	gl2d::Texture texture(RESOURCES_PATH "test.jpg");
 
 
 	// Main loop
@@ -37,17 +35,20 @@ int main()
 		glfwGetWindowSize(window, &w, &h);
 		renderer.updateWindowMetrics(w, h);
 
+		// Set DeltaTime
+		currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+
 
 		// Handle input and update
+		player.update(window);
 
 		// Clear screen
-		renderer.clearScreen({0.1, 0.2, 0.6, 1});
+		renderer.clearScreen({1.0, 1.0, 1.0, 1});
 
 		// Render objects
-		renderer.renderRectangle({100, 250, 100, 100}, Colors_Orange, {}, 0);
-		renderer.renderRectangle({100, 100, 100, 100}, texture, Colors_White, {}, 0);
-		// Add more rendering here...
-
+		player.draw(&renderer);
+		
 		// Flush renderer (dump your rendering into the screen)
 		renderer.flush();
 

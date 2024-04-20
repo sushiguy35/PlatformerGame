@@ -35,10 +35,6 @@ int main()
 		glfwGetWindowSize(window, &w, &h);
 		renderer.updateWindowMetrics(w, h);
 
-		// Set DeltaTime
-		currentFrame = glfwGetTime();
-		deltaTime = currentFrame - lastFrame;
-
 
 		// Handle input and update
 		player.update(window);
